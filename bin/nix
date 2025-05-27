@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once getcwd() . '/bootstrap.php';
+
+use NixPHP\Cli\Core\Console;
+
+$cli = new Console();
+$cli->handle($argv);
