@@ -5,6 +5,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once getcwd() . '/bootstrap.php';
 
 use NixPHP\Cli\Core\Console;
+use function NixPHP\app;
 
-$cli = new Console();
-$cli->handle($argv);
+$registry = app()->container()->get('commandRegistry');
+$cli = new Console($registry);
+$cli->run($argv);

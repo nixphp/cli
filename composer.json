@@ -13,19 +13,16 @@
   "autoload": {
     "psr-4": {
       "NixPHP\\Cli\\": "src/"
-    }
+    },
+    "files": [
+      "src/functions.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tests/"
     }
   },
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../nixphp"
-    }
-  ],
   "require": {
     "php": ">=8.3",
     "ext-readline": "*",

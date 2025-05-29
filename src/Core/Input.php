@@ -60,12 +60,13 @@ class Input
         $isSameArgumentsCount = count($arguments) === count($definitionArgs);
 
         if (false === $isSameArgumentsCount && count($definitionArgs) > count($arguments)) {
+            $argumentList = implode(', ', array_keys($definitionArgs));
             throw new ConsoleException(
-                'You are expecting a argument which isn\'t given' . PHP_EOL
+                'The command expects arguments: ' . $argumentList . PHP_EOL
             );
         } elseif (false === $isSameArgumentsCount && count($definitionArgs) < count($arguments)) {
             throw new ConsoleException(
-                'You have non configured arguments given' . PHP_EOL
+                'These argument(s) is/are not configured.' . PHP_EOL
             );
         }
 

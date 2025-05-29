@@ -4,15 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5036678fcbd587bbc5f2320b857a262",
+    "content-hash": "3790cc0a310cc71b0590b44e17f8caba",
     "packages": [
         {
             "name": "nixphp/framework",
             "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nixphp/framework.git",
+                "reference": "5e0f0bfeefdbada4cddd423179d54d5a6dffa6ee"
+            },
             "dist": {
-                "type": "path",
-                "url": "../nixphp",
-                "reference": "297aca95f4b4fa5c4e9da513b41921c0f6033405"
+                "type": "zip",
+                "url": "https://api.github.com/repos/nixphp/framework/zipball/5e0f0bfeefdbada4cddd423179d54d5a6dffa6ee",
+                "reference": "5e0f0bfeefdbada4cddd423179d54d5a6dffa6ee",
+                "shasum": ""
             },
             "require": {
                 "ext-json": "*",
@@ -30,27 +36,18 @@
                 "phpunit/php-code-coverage": "^12.1",
                 "phpunit/phpunit": "^12.1"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "NixPHP\\": "src/"
-                },
                 "files": [
                     "src/functions.php",
                     "src/view_helpers.php"
-                ]
-            },
-            "autoload-dev": {
+                ],
                 "psr-4": {
-                    "Tests\\": "tests/",
-                    "Fixtures\\": "tests/Fixtures/app/"
+                    "NixPHP\\": "src/"
                 }
             },
-            "scripts": {
-                "test": [
-                    "phpunit --colors=always"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -61,9 +58,11 @@
                 }
             ],
             "description": "NixPHP – the ultra-light, functional PHP framework for fast microservices and APIs.",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/nixphp/framework/issues",
+                "source": "https://github.com/nixphp/framework/tree/main"
+            },
+            "time": "2025-05-29T17:35:33+00:00"
         },
         {
             "name": "nyholm/psr7",
