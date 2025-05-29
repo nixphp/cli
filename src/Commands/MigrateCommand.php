@@ -7,6 +7,7 @@ use NixPHP\Cli\Core\Input;
 use NixPHP\Cli\Core\Output;
 use NixPHP\Cli\Exception\ConsoleException;
 use NixPHP\Cli\Core\AbstractCommand;
+use function NixPHP\app;
 use function NixPHP\Database\database;
 
 class MigrateCommand extends AbstractCommand
@@ -43,7 +44,7 @@ class MigrateCommand extends AbstractCommand
         $this->ensureMigrationTrackingIntegrity($output);
 
         $connection     = database();
-        $migrationsPath = realpath(__DIR__ . '/../Migrations');
+        $migrationsPath = app()->getBasePath() . '/app/Migrations';
 
         if (false === $migrationsPath) {
             $output->writeLine('Migrations directory does not exist.');

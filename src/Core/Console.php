@@ -26,6 +26,8 @@ class Console
         if (empty($commandName)) {
             $commandName = 'command:list';
             $commandArgs[] = $this->registry->getAll();
+        } else if ($commandName === 'command:list') {
+            $commandArgs[] = $this->registry->getAll();
         }
 
         $command = $this->registry->get($commandName);
