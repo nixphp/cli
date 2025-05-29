@@ -5,6 +5,7 @@ namespace NixPHP\Cli\Commands;
 use NixPHP\Cli\Core\AbstractCommand;
 use NixPHP\Cli\Core\Input;
 use NixPHP\Cli\Core\Output;
+use function NixPHP\app;
 
 class MigrationCreateCommand extends AbstractCommand
 {
@@ -28,7 +29,7 @@ class MigrationCreateCommand extends AbstractCommand
         $timestamp = time();
         $template  = $this->buildTemplate($timestamp);
 
-        $directory = __DIR__ . '/../Migrations';
+        $directory = app()->getBasePath() . '/app/Migrations';
 
         if (!is_dir($directory)) {
             mkdir($directory, 0777, true);;
