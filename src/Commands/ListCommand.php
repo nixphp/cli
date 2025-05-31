@@ -20,7 +20,7 @@ class ListCommand extends AbstractCommand
 
     protected function configure(): void
     {
-        $this->setTitle('Registered commands');
+        $this->setTitle('Registered commands')->setDescription('List all registered commands.');
     }
 
     public function run(Input $input, Output $output): int

@@ -5,5 +5,5 @@ use function NixPHP\app;
 
 function command(): CommandRegistry
 {
-    return app()->container()->get('command-registry');
+    return app()->container()->get('commandRegistry');
 }
