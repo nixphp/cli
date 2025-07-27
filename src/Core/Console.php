@@ -32,13 +32,14 @@ class Console
 
         $command = $this->registry->get($commandName);
 
-        if (null === $command) {
-            throw new ConsoleException(
-                sprintf('Command %s not found', $commandName)
-            );
-        }
-
         try {
+
+            if (null === $command) {
+                throw new ConsoleException(
+                    sprintf('Command "%s" not found', $commandName)
+                );
+            }
+
             /** @var AbstractCommand $object */
             $object = new $command(...$commandArgs);
             $definition = $object->getDefinition();
@@ -55,7 +56,8 @@ class Console
 
             $object->run($input, $output);
 
-        } catch (ConsoleException $e) {
+        } catch (\Exception $e) {
+            print PHP_EOL;
             print $e->getMessage();
             print PHP_EOL;
         }

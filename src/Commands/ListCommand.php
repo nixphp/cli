@@ -5,6 +5,7 @@ namespace NixPHP\Cli\Commands;
 use NixPHP\Cli\Core\AbstractCommand;
 use NixPHP\Cli\Core\Input;
 use NixPHP\Cli\Core\Output;
+use NixPHP\Cli\Exception\ConsoleException;
 
 class ListCommand extends AbstractCommand
 {
@@ -30,9 +31,15 @@ class ListCommand extends AbstractCommand
         $longestChars = 0;
 
         foreach ($this->commands as $command) {
-            if ($command === '\NixPHP\Cli\Commands\ListCommand') {
+
+            if ($command === 'NixPHP\Cli\Commands\ListCommand') {
                 continue;
             }
+
+            if (!defined($command . '::NAME') || !is_string(constant($command . '::NAME'))) {
+                throw new ConsoleException('Command class "' . $command . '" must define a static NAME constant.');
+            }
+
 
             $commandName = $command::NAME;
             $commandNameLength = strlen($commandName);
@@ -42,6 +49,7 @@ class ListCommand extends AbstractCommand
             }
 
             $commands[$commandName] = $this->getCommandInfo($command);
+
         }
 
         ksort($commands);
