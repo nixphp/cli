@@ -32,24 +32,20 @@ abstract class AbstractCommand
         ];
     }
 
-    /**
-     * @param $name
-     * @return $this
-     */
-    protected function addArgument($name): self
+    protected function addArgument(string $name, bool $optional = false): self
     {
-        $this->arguments[$name] = '';
+        $this->arguments[$name] = $optional ? 'optional' : 'required';
         return $this;
     }
 
-    /**
-     * @param string $name
-     * @param string|null $shortcut
-     * @return $this
-     */
-    protected function addOption(string $name, ?string $shortcut = ''): self
+    protected function addOption(string $name, ?string $shortcut = '', bool $expectsValue = false): self
     {
-        $this->options[$name] = '';
+        $this->options[$name] = $expectsValue ? 'value' : 'flag';
+
+        if ($shortcut) {
+            $this->options[$shortcut] = $expectsValue ? 'value' : 'flag';
+        }
+
         return $this;
     }
 
@@ -87,6 +83,38 @@ abstract class AbstractCommand
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function showHelp(Output $output): void
+    {
+        $output->writeLine('');
+        $output->writeLine('  <info>' . ($this->getTitle() ?? static::NAME) . '</info>');
+        $output->writeLine('  ' . $this->getDescription());
+        $output->writeLine('');
+
+        $definition = $this->getDefinition();
+
+        if (!empty($definition['arguments'])) {
+            $output->writeLine('  <comment>Arguments:</comment>');
+            foreach ($definition['arguments'] as $name => $mode) {
+                $optional = $mode === 'optional' ? ' (optional)' : '';
+                $output->writeLine("    <info>$name</info>$optional");
+            }
+            $output->writeLine('');
+        }
+
+        if (!empty($definition['options'])) {
+            $output->writeLine('  <comment>Options:</comment>');
+            foreach ($definition['options'] as $name => $mode) {
+                $expectsValue = $mode === 'value' ? ' [=value]' : '';
+                $output->writeLine("    <info>--$name</info>$expectsValue");
+            }
+            $output->writeLine('');
+        }
+
+        $output->writeLine('  <comment>Help:</comment>');
+        $output->writeLine('    Use <info>php cli.php command-name --help</info> for this screen.');
+        $output->writeLine('');
     }
 
     abstract protected function configure(): void;

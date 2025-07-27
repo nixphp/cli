@@ -6,78 +6,83 @@ use NixPHP\Cli\Exception\ConsoleException;
 
 class Input
 {
-
     private array $definition;
     private array $arguments = [];
     private array $options = [];
 
-    /**
-     * @param array $parameters
-     * @param array $definition
-     * @throws ConsoleException
-     */
     public function __construct(array $parameters, array $definition)
     {
         $this->definition = $definition;
         $this->parse($parameters);
     }
 
-    /**
-     * @param array $parameters
-     * @throws ConsoleException
-     */
     private function parse(array $parameters): void
     {
         $options   = [];
         $arguments = [];
 
-        foreach ($parameters as $index => $parameter) {
-            if (true === str_starts_with($parameter, '--')) {
-                // long option
-                $raw = substr($parameter, 2);
-                $parts = explode('=', $raw);
+        $i = 0;
+        while ($i < count($parameters)) {
+            $parameter = $parameters[$i];
 
-                $options[$parts[0]][] = $parts[1] ?? null;
-                continue;
-            }
+            if (str_starts_with($parameter, '--')) {
+                // --option or --option=value
+                $parts = explode('=', substr($parameter, 2), 2);
+                $key   = $parts[0];
+                $value = $parts[1] ?? null;
 
-            if (true === str_starts_with($parameter, '-')) {
-                // short option
-                $name = substr($parameter, 1);
-                $options[$name][] = array_slice($parameters, $index + 1, 1)[0] ?? null;
-                continue;
-            }
+                if ($value === null && isset($parameters[$i + 1]) && !str_starts_with($parameters[$i + 1], '-')) {
+                    $value = $parameters[++$i];
+                }
 
-            $previousItem = $parameters[$index - 1] ?? '';
+                $options[$key][] = $value ?? true;
+            } elseif (str_starts_with($parameter, '-')) {
+                // -o value
+                $key = substr($parameter, 1);
+                $value = null;
 
-            if (false === str_starts_with($previousItem, '-')) {
+                if (isset($parameters[$i + 1]) && !str_starts_with($parameters[$i + 1], '-')) {
+                    $value = $parameters[++$i];
+                }
+
+                $options[$key][] = $value ?? true;
+            } else {
                 $arguments[] = $parameter;
             }
 
+            $i++;
         }
 
-        $definitionArgs       = $this->definition['arguments'] ?? [];
-        $isSameArgumentsCount = count($arguments) === count($definitionArgs);
+        // Argumente aus Definition zuweisen
+        $definitionArgs = $this->definition['arguments'] ?? [];
 
-        if (false === $isSameArgumentsCount && count($definitionArgs) > count($arguments)) {
-            $argumentList = implode(', ', array_keys($definitionArgs));
-            throw new ConsoleException(
-                'The command expects arguments: ' . $argumentList . PHP_EOL
-            );
-        } elseif (false === $isSameArgumentsCount && count($definitionArgs) < count($arguments)) {
-            throw new ConsoleException(
-                'These argument(s) is/are not configured.' . PHP_EOL
-            );
+        $argumentMap = [];
+        $index = 0;
+        foreach ($definitionArgs as $name => $isOptional) {
+            if (array_key_exists($index, $arguments)) {
+                $argumentMap[$name] = $arguments[$index++];
+            } elseif (!$isOptional) {
+                throw new ConsoleException("Argument <$name> is required but missing.");
+            } else {
+                $argumentMap[$name] = null;
+            }
         }
 
-        if ($isSameArgumentsCount) {
-            $this->arguments = array_combine(array_flip($definitionArgs), $arguments);
+        if ($index < count($arguments)) {
+            throw new ConsoleException("Too many arguments provided.");
         }
 
-        // Add options (always optional)
+        $this->arguments = $argumentMap;
+
+        // Optionen aus Definition zuweisen
         $definitionOpts = $this->definition['options'] ?? [];
-        $optionsDelta   = array_diff(array_keys($options), $definitionOpts);
-        $this->options  = array_combine($optionsDelta, $options);
+        foreach ($options as $name => $values) {
+            if (array_key_exists($name, $definitionOpts)) {
+                $this->options[$name] = is_array($values)
+                    ? (count($values) === 1 ? $values[0] : $values)
+                    : $values;
+            }
+        }
     }
 
     public function getArgument(string $name): ?string
@@ -85,18 +90,28 @@ class Input
         return $this->arguments[$name] ?? null;
     }
 
-    public function getOption(string $name): string|array|null
+    public function getOption(string $name): string|array|bool|null
     {
-        return $this->options[$name] ?? null;
+        if (!isset($this->options[$name])) {
+            return null;
+        }
+
+        $value = $this->options[$name];
+
+        if (is_array($value)) {
+            return count($value) === 1 ? $value[0] : $value;
+        }
+
+        return $value;
     }
 
     public function ask(string $message): string
     {
-        $input = readlink($message);
-        if ($input) {
+        echo $message . ' ';
+        $input = trim(fgets(STDIN));
+        if ($input !== '') {
             readline_add_history($input);
         }
         return $input;
     }
-
 }
