@@ -4,9 +4,10 @@
 require_once getcwd() . '/vendor/autoload.php';
 require_once getcwd() . '/bootstrap.php';
 
-use NixPHP\Cli\Core\Console;
+use NixPHP\CLI\Core\Console;
+use NixPHP\CLI\Support\CommandRegistry;
 use function NixPHP\app;
 
-$registry = app()->container()->get('commandRegistry');
+$registry = app()->container()->get(CommandRegistry::class);
 $cli = new Console($registry);
 $cli->run($argv);

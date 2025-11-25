@@ -12,7 +12,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "NixPHP\\Cli\\": "src/"
+      "NixPHP\\CLI\\": "src/"
     }
   },
   "autoload-dev": {

@@ -1,11 +1,13 @@
 <?php
 
-namespace NixPHP\Cli\Commands;
+declare(strict_types=1);
 
-use NixPHP\Cli\Core\AbstractCommand;
-use NixPHP\Cli\Core\Input;
-use NixPHP\Cli\Core\Output;
-use NixPHP\Cli\Exception\ConsoleException;
+namespace NixPHP\CLI\Commands;
+
+use NixPHP\CLI\Core\AbstractCommand;
+use NixPHP\CLI\Core\Input;
+use NixPHP\CLI\Core\Output;
+use NixPHP\CLI\Exception\ConsoleException;
 
 class ListCommand extends AbstractCommand
 {

@@ -1,6 +1,8 @@
 <?php
 
-namespace NixPHP\Cli\Support;
+declare(strict_types=1);
+
+namespace NixPHP\CLI\Support;
 
 class CommandRegistry
 {

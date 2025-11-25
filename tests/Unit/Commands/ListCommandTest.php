@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Commands;
 
-use NixPHP\Cli\Commands\ListCommand;
-use NixPHP\Cli\Core\AbstractCommand;
-use NixPHP\Cli\Core\Input;
-use NixPHP\Cli\Core\Output;
-use NixPHP\Cli\Exception\ConsoleException;
+use NixPHP\CLI\Commands\ListCommand;
+use NixPHP\CLI\Core\AbstractCommand;
+use NixPHP\CLI\Core\Input;
+use NixPHP\CLI\Core\Output;
+use NixPHP\CLI\Exception\ConsoleException;
 use Tests\NixPHPTestCase;
 
 class TestCommand1 extends AbstractCommand
