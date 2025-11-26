@@ -148,7 +148,7 @@ bootstrap.php
 
 ## ✅ Requirements
 
-* `nixphp/framework` >= 1.0
+* `nixphp/framework` >= 0.1.0
 * PHP >= 8.1
 
 ---
