@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace NixPHP\CLI\Core;
 
-use NixPHP\Cli\Exception\ConsoleException;
+use NixPHP\CLI\Exception\ConsoleException;
 
 class Input
 {
