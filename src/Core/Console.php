@@ -1,20 +1,30 @@
 <?php
 
-namespace NixPHP\Cli\Core;
+declare(strict_types=1);
 
-use NixPHP\Cli\Exception\ConsoleException;
-use NixPHP\Cli\Support\CommandRegistry;
+namespace NixPHP\CLI\Core;
+
+use NixPHP\CLI\Exception\ConsoleException;
+use NixPHP\CLI\Support\CommandRegistry;
 
 class Console
 {
 
     private CommandRegistry $registry;
 
+    /**
+     * @param CommandRegistry $commandRegistry
+     */
     public function __construct(CommandRegistry $commandRegistry)
     {
         $this->registry = $commandRegistry;
     }
-    
+
+    /**
+     * @param array $parameters
+     *
+     * @return void
+     */
     public function run(array $parameters): void
     {
         // The first argument is the bin/console command itself
@@ -24,9 +34,9 @@ class Console
         $commandArgs = [];
 
         if (empty($commandName)) {
-            $commandName = 'command:list';
+            $commandName   = 'command:list';
             $commandArgs[] = $this->registry->getAll();
-        } else if ($commandName === 'command:list') {
+        } elseif ($commandName === 'command:list') {
             $commandArgs[] = $this->registry->getAll();
         }
 

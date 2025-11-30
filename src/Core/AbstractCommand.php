@@ -1,6 +1,8 @@
 <?php
 
-namespace NixPHP\Cli\Core;
+declare(strict_types=1);
+
+namespace NixPHP\CLI\Core;
 
 abstract class AbstractCommand
 {

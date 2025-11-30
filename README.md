@@ -65,9 +65,9 @@ To create your own CLI command, add a class in the `app/Commands/` folder:
 ```php
 namespace App\Commands;
 
-use NixPHP\Cli\Core\AbstractCommand;
-use NixPHP\Cli\Core\Input;
-use NixPHP\Cli\Core\Output;
+use NixPHP\CLI\Core\AbstractCommand;
+use NixPHP\CLI\Core\Input;
+use NixPHP\CLI\Core\Output;
 
 class HelloCommand extends AbstractCommand
 {
@@ -148,8 +148,8 @@ bootstrap.php
 
 ## ✅ Requirements
 
-* `nixphp/framework` >= 1.0
-* PHP >= 8.1
+* `nixphp/framework` >= 0.1.0
+* PHP >= 8.3
 
 ---
 

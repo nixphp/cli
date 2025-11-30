@@ -1,11 +1,17 @@
 <?php
 
-use NixPHP\Cli\Commands\ListCommand;
-use NixPHP\Cli\Support\CommandRegistry;
+declare(strict_types=1);
+
+use NixPHP\CLI\Commands\ListCommand;
+use NixPHP\CLI\Commands\RouteDebugCommand;
+use NixPHP\CLI\Support\CommandRegistry;
+use function NixPHP\CLI\command;
 use function NixPHP\app;
 
-app()->container()->set('commandRegistry', function() {
+app()->container()->set(CommandRegistry::class, function() {
     $commandRegistry = new CommandRegistry();
     $commandRegistry->add(ListCommand::class);
     return $commandRegistry;
 });
+
+command()->add(RouteDebugCommand::class);

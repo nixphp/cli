@@ -1,8 +1,10 @@
 <?php
 
-namespace NixPHP\Cli\Core;
+declare(strict_types=1);
 
-use NixPHP\Cli\Exception\ConsoleException;
+namespace NixPHP\CLI\Core;
+
+use NixPHP\CLI\Exception\ConsoleException;
 
 class Input
 {
@@ -10,12 +12,24 @@ class Input
     private array $arguments = [];
     private array $options = [];
 
+    /**
+     * @param array $parameters
+     * @param array $definition
+     *
+     * @throws ConsoleException
+     */
     public function __construct(array $parameters, array $definition)
     {
         $this->definition = $definition;
         $this->parse($parameters);
     }
 
+    /**
+     * @param array $parameters
+     *
+     * @return void
+     * @throws ConsoleException
+     */
     private function parse(array $parameters): void
     {
         $options   = [];
@@ -85,11 +99,21 @@ class Input
         }
     }
 
+    /**
+     * @param string $name
+     *
+     * @return string|null
+     */
     public function getArgument(string $name): ?string
     {
         return $this->arguments[$name] ?? null;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return string|array|bool|null
+     */
     public function getOption(string $name): string|array|bool|null
     {
         if (!isset($this->options[$name])) {
@@ -105,11 +129,16 @@ class Input
         return $value;
     }
 
+    /**
+     * @param string $message
+     *
+     * @return string
+     */
     public function ask(string $message): string
     {
         echo $message . ' ';
         $input = trim(fgets(STDIN));
-        if ($input !== '') {
+        if ($input !== '' && function_exists('readline_add_history')) {
             readline_add_history($input);
         }
         return $input;

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Core;
 
-use NixPHP\Cli\Core\Input;
-use NixPHP\Cli\Exception\ConsoleException;
+use NixPHP\CLI\Core\Input;
+use NixPHP\CLI\Exception\ConsoleException;
 use Tests\NixPHPTestCase;
 
 class InputTest extends NixPHPTestCase
