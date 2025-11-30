@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace NixPHP\CLI;
-
 use NixPHP\CLI\Commands\ListCommand;
 use NixPHP\CLI\Commands\RouteDebugCommand;
 use NixPHP\CLI\Support\CommandRegistry;

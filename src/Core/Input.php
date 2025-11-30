@@ -138,7 +138,7 @@ class Input
     {
         echo $message . ' ';
         $input = trim(fgets(STDIN));
-        if ($input !== '') {
+        if ($input !== '' && function_exists('readline_add_history')) {
             readline_add_history($input);
         }
         return $input;
