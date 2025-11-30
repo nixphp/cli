@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Core;
 
-use NixPHP\Cli\Core\AbstractCommand;
-use NixPHP\Cli\Core\Console;
-use NixPHP\Cli\Core\Input;
-use NixPHP\Cli\Core\Output;
-use NixPHP\Cli\Support\CommandRegistry;
+use NixPHP\CLI\Core\AbstractCommand;
+use NixPHP\CLI\Core\Console;
+use NixPHP\CLI\Core\Input;
+use NixPHP\CLI\Core\Output;
+use NixPHP\CLI\Support\CommandRegistry;
 use Tests\NixPHPTestCase;
 
 class TestConsoleCommand extends AbstractCommand
