@@ -62,7 +62,7 @@ class ListCommandTest extends NixPHPTestCase
         $this->commands = [
             TestCommand1::class,
             TestCommand2::class,
-            'NixPHP\Cli\Commands\ListCommand',
+            'NixPHP\CLI\Commands\ListCommand',
         ];
         
         $this->command = new ListCommand($this->commands);
@@ -78,12 +78,10 @@ class ListCommandTest extends NixPHPTestCase
     {
         $output = $this->createMock(Output::class);
         $input = $this->createMock(Input::class);
-        
-        // Wir erwarten, dass writeLine für beide Testkommandos aufgerufen wird (2 mal pro Kommando)
+
         $output->expects($this->exactly(4))
             ->method('writeLine');
         
-        // Wir erwarten, dass writeEmptyLine für beide Testkommandos aufgerufen wird
         $output->expects($this->exactly(2))
             ->method('writeEmptyLine');
         
@@ -96,7 +94,6 @@ class ListCommandTest extends NixPHPTestCase
     {
         $this->expectException(ConsoleException::class);
         
-        // Mock eine Klasse, die keine NAME-Konstante hat
         $invalidCommands = [
             InvalidCommand::class,
         ];
