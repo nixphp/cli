@@ -34,7 +34,7 @@ class ListCommand extends AbstractCommand
 
         foreach ($this->commands as $command) {
 
-            if ($command === 'NixPHP\Cli\Commands\ListCommand') {
+            if ($command === 'NixPHP\CLI\Commands\ListCommand') {
                 continue;
             }
 

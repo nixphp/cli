@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace NixPHP\CLI\Core;
 
-use NixPHP\Cli\Exception\ConsoleException;
-use NixPHP\Cli\Support\CommandRegistry;
+use NixPHP\CLI\Exception\ConsoleException;
+use NixPHP\CLI\Support\CommandRegistry;
 
 class Console
 {

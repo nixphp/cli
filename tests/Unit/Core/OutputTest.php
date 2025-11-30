@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Core;
 
-use NixPHP\Cli\Core\Output;
+use NixPHP\CLI\Core\Output;
 use Tests\NixPHPTestCase;
 
 class OutputTest extends NixPHPTestCase

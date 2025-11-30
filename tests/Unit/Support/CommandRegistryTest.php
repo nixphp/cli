@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Support;
 
-use NixPHP\Cli\Support\CommandRegistry;
+use NixPHP\CLI\Support\CommandRegistry;
 use Tests\NixPHPTestCase;
 
 class TestRegistryCommand
