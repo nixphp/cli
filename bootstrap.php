@@ -7,6 +7,7 @@ namespace NixPHP\CLI;
 use NixPHP\CLI\Commands\ListCommand;
 use NixPHP\CLI\Commands\RouteDebugCommand;
 use NixPHP\CLI\Support\CommandRegistry;
+use function NixPHP\CLI\command;
 use function NixPHP\app;
 
 app()->container()->set(CommandRegistry::class, function() {
