@@ -22,11 +22,11 @@ This plugin gives you a clean CLI system with colored output, argument parsing, 
 
 ## 📦 Features
 
-✅ Adds `vendor/bin/nix` as your app’s command-line entry point
-✅ Auto-discovers commands in `app/Commands/`
-✅ Supports arguments, options, and interactive input
-✅ Prints colored output for better UX
-✅ Fully extensible – build your own tools and workflows
+- ✅ Adds `vendor/bin/nix` as your app’s command-line entry point
+- ✅ Auto-discovers commands in `app/Commands/`
+- ✅ Supports arguments, options, and interactive input
+- ✅ Prints colored output for better UX
+- ✅ Fully extensible – build your own tools and workflows
 
 ---
 
