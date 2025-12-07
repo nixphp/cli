@@ -58,7 +58,7 @@ class ConsoleTest extends NixPHPTestCase
     {
         // Mock für CommandRegistry vorbereiten
         $this->registry->expects($this->once())
-            ->method('getAll')
+            ->method('all')
             ->willReturn([]);
 
         $this->registry->expects($this->once())
@@ -76,7 +76,7 @@ class ConsoleTest extends NixPHPTestCase
     {
         // Mock für CommandRegistry vorbereiten
         $this->registry->expects($this->never())
-            ->method('getAll');
+            ->method('all');
 
         $this->registry->expects($this->once())
             ->method('get')
@@ -93,7 +93,7 @@ class ConsoleTest extends NixPHPTestCase
     {
         // Mock für CommandRegistry vorbereiten
         $this->registry->expects($this->once())
-            ->method('getAll')
+            ->method('all')
             ->willReturn([]);
 
         $this->registry->expects($this->once())

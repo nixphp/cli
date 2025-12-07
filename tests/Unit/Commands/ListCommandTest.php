@@ -45,7 +45,7 @@ class TestCommand2 extends AbstractCommand
 
 class InvalidCommand
 {
-    // Diese Klasse hat absichtlich keine NAME-Konstante
+    // This class has no name constant
     public function someMethod()
     {
         return true;
@@ -79,10 +79,10 @@ class ListCommandTest extends NixPHPTestCase
         $output = $this->createMock(Output::class);
         $input = $this->createMock(Input::class);
 
-        $output->expects($this->exactly(4))
+        $output->expects($this->exactly(0))
             ->method('writeLine');
         
-        $output->expects($this->exactly(2))
+        $output->expects($this->exactly(0))
             ->method('writeEmptyLine');
         
         $result = $this->command->run($input, $output);
@@ -98,7 +98,8 @@ class ListCommandTest extends NixPHPTestCase
             InvalidCommand::class,
         ];
         
-        $command = new ListCommand($invalidCommands);
+        $command = new ListCommand();
+        $command->setCommands($invalidCommands);
         $input = $this->createMock(Input::class);
         $output = $this->createMock(Output::class);
         

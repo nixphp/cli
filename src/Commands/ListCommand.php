@@ -13,11 +13,10 @@ class ListCommand extends AbstractCommand
 {
     public const string NAME = 'command:list';
 
-    private array $commands;
+    private array $commands = [];
 
-    public function __construct(array $commands = [])
+    public function setCommands(array $commands): void
     {
-        parent::__construct();
         $this->commands = $commands;
     }
 
@@ -34,7 +33,7 @@ class ListCommand extends AbstractCommand
 
         foreach ($this->commands as $command) {
 
-            if ($command === 'NixPHP\CLI\Commands\ListCommand') {
+            if ($command === ListCommand::class) {
                 continue;
             }
 

@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace NixPHP\CLI\Core;
 
+use NixPHP\CLI\Commands\ListCommand;
 use NixPHP\CLI\Exception\ConsoleException;
 use NixPHP\CLI\Support\CommandRegistry;
+use function NixPHP\app;
 
 class Console
 {
-
-    private CommandRegistry $registry;
-
     /**
-     * @param CommandRegistry $commandRegistry
+     * @param CommandRegistry $registry
      */
-    public function __construct(CommandRegistry $commandRegistry)
-    {
-        $this->registry = $commandRegistry;
+    public function __construct(
+        private readonly CommandRegistry $registry
+    ) {
     }
 
     /**
@@ -31,27 +30,29 @@ class Console
         array_shift($parameters);
 
         $commandName = array_shift($parameters);
-        $commandArgs = [];
 
         if (empty($commandName)) {
-            $commandName   = 'command:list';
-            $commandArgs[] = $this->registry->getAll();
-        } elseif ($commandName === 'command:list') {
-            $commandArgs[] = $this->registry->getAll();
+            $commandName = 'command:list';
         }
 
-        $command = $this->registry->get($commandName);
+        $commandClass = $this->registry->get($commandName);
 
         try {
 
-            if (null === $command) {
+            if (null === $commandClass) {
                 throw new ConsoleException(
                     sprintf('Command "%s" not found', $commandName)
                 );
             }
 
-            /** @var AbstractCommand $object */
-            $object = new $command(...$commandArgs);
+            if ($commandClass === ListCommand::class || $commandName === ListCommand::NAME) {
+                $object = new ListCommand();
+                $object->setCommands($this->registry->all());
+            } else {
+                /** @var AbstractCommand $object */
+                $object = app()->container()->make($commandClass);
+            }
+
             $definition = $object->getDefinition();
 
             $input = new Input($parameters, $definition);
