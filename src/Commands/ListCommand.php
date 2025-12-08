@@ -8,6 +8,7 @@ use NixPHP\CLI\Core\AbstractCommand;
 use NixPHP\CLI\Core\Input;
 use NixPHP\CLI\Core\Output;
 use NixPHP\CLI\Exception\ConsoleException;
+use function NixPHP\app;
 
 class ListCommand extends AbstractCommand
 {
@@ -74,7 +75,7 @@ class ListCommand extends AbstractCommand
     private function getCommandInfo(string $command): array
     {
         /** @var AbstractCommand $instance */
-        $instance = new $command();
+        $instance = app()->container()->make($command);
 
         return [
             'title'           => $instance->getTitle(),
