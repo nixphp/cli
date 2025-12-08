@@ -8,6 +8,11 @@ class CommandRegistry
 {
     protected array $commands = [];
 
+    public function __construct(array $commands = [])
+    {
+        $this->commands = $commands;
+    }
+
     public function add(string $class): void
     {
         if (!in_array($class, $this->commands, true)) {
@@ -20,7 +25,7 @@ class CommandRegistry
         return $this->commands[$name] ?? null;
     }
 
-    public function getAll(): array
+    public function all(): array
     {
         return $this->commands;
     }

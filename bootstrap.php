@@ -11,7 +11,6 @@ use function NixPHP\app;
 app()->container()->set(CommandRegistry::class, function() {
     $commandRegistry = new CommandRegistry();
     $commandRegistry->add(ListCommand::class);
+    $commandRegistry->add(RouteDebugCommand::class);
     return $commandRegistry;
 });
-
-command()->add(RouteDebugCommand::class);

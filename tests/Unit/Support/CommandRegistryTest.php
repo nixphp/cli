@@ -41,7 +41,7 @@ class CommandRegistryTest extends NixPHPTestCase
         $this->registry->add(TestRegistryCommand::class);
         $this->registry->add(TestRegistryCommand::class);
         
-        $commands = $this->registry->getAll();
+        $commands = $this->registry->all();
         
         $this->assertCount(1, $commands);
         $this->assertSame(
@@ -60,7 +60,7 @@ class CommandRegistryTest extends NixPHPTestCase
         $this->registry->add(TestRegistryCommand::class);
         $this->registry->add(SecondTestRegistryCommand::class);
         
-        $commands = $this->registry->getAll();
+        $commands = $this->registry->all();
         
         $this->assertCount(2, $commands);
         $this->assertSame(
@@ -80,6 +80,6 @@ class CommandRegistryTest extends NixPHPTestCase
         
         $this->registry->clear();
         
-        $this->assertEmpty($this->registry->getAll());
+        $this->assertEmpty($this->registry->all());
     }
 }
