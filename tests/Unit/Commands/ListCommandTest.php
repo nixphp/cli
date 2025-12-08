@@ -65,7 +65,8 @@ class ListCommandTest extends NixPHPTestCase
             'NixPHP\CLI\Commands\ListCommand',
         ];
         
-        $this->command = new ListCommand($this->commands);
+        $this->command = new ListCommand();
+        $this->command->setCommands($this->commands);
     }
 
     public function testConfigureSetsCorrectTitleAndDescription(): void
@@ -79,10 +80,10 @@ class ListCommandTest extends NixPHPTestCase
         $output = $this->createMock(Output::class);
         $input = $this->createMock(Input::class);
 
-        $output->expects($this->exactly(0))
+        $output->expects($this->exactly(4))
             ->method('writeLine');
         
-        $output->expects($this->exactly(0))
+        $output->expects($this->exactly(2))
             ->method('writeEmptyLine');
         
         $result = $this->command->run($input, $output);
